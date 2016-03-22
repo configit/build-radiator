@@ -1,0 +1,19 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html lang="en" ng-app="@ViewBag.AngularApp">
+<head>
+  <title>@ViewBag.Title</title>
+  <base href="@Url.Content( "~/" )" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"  />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic" />
+  @Styles.Render( "~/content/styles" )
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body layout="column" layout-fill ng-controller="@ViewBag.AngularController as ctrl" class="@( !string.IsNullOrWhiteSpace( ViewBag.AngularApp ) ? "ng-cloak" : "" )">
+  @RenderBody()
+
+  @Scripts.Render( "~/bundles/scripts" )
+  @Scripts.Render( "~/bundles/application" )
+</body>
+</html>

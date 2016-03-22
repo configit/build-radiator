@@ -1,0 +1,77 @@
+﻿@using System.Web.Optimization
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewBag.Title = "Build Radiator";
+  ViewBag.AngularApp = "BuildRadiator";
+  ViewBag.AngularController = "DashboardController";
+}
+
+<div flex>
+  <md-grid-list md-cols="6" md-row-height="2:2" md-gutter="8px" style="margin: 8px">
+    <md-grid-tile md-rowspan="{{ tile.rowSpan }}" md-colspan="{{ tile.columnSpan }}"
+                  class="build-tile"
+                  ng-repeat-start="tile in ctrl.tiles"
+                  ng-if="tile.type == 'project'"
+                  ng-class="( tile.error ? 'error-tile' : tile.project.status ) + ( tile.project.previouslyFailing ? ' previously-failing' : '' )">
+
+      <div ng-if="tile.error">
+        {{ tile.error.data.message }}
+      </div>
+
+      <div layout="column" layout-fill ng-if="!tile.error">
+        @* Failed *@
+        <div class="user-list" ng-if="tile.project.status === 'failed'">
+          <gravatar email="tile.project.investigator" title="{{ tile.project.investigator }}" size="100" ng-if="tile.project.investigator"></gravatar><gravatar email="username" title="{{ username }}" ng-repeat="username in tile.project.committers | limitTo:ctrl.committerLimit" size="50" ng-if="!tile.project.investigator"></gravatar><div class="committer-overflow" ng-if="!tile.project.investigator && tile.project.committers.length > ctrl.committerLimit">{{ tile.project.committers.length }}</div>
+        </div>
+
+        @* In Progress *@
+        <div class="messages in-progress" ng-if="tile.project.status === 'inProgress'">
+          Started <strong>{{ tile.project.start | fromNow }}</strong><br/>
+          Should finish <strong>{{ tile.project.end | fromNow }}</strong>
+        </div>
+
+        @* Success *@
+        <div class="messages success" ng-if="tile.project.status === 'success'">
+          Built <strong>{{ tile.project.end | fromNow }}</strong><br/>
+          Took <strong>{{ tile.project.end | fromTime:tile.project.start }}</strong>
+        </div>
+
+        <div flex class="progress-box" layout="column" layout-align="end center" ng-if="tile.project.status === 'inProgress'">
+          <md-progress-linear md-mode="determinate" value="{{ tile.project.percentComplete }}"></md-progress-linear>
+        </div>
+      </div>
+
+      <md-grid-tile-footer>
+        <div layout="row">
+          <build-status-icon status="tile.project.status"></build-status-icon>
+          <h3 flex>{{ ::tile.caption }}</h3>
+        </div>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+    <md-grid-tile md-rowspan="{{ tile.rowSpan }}" md-colspan="{{ tile.columnSpan }}"
+                  ng-if="tile.type == 'message'"
+                  ng-class="( tile.error ? 'error-tile ' : 'message-tile ' ) + tile.message.classes.join( ' ' )">
+      <div flex ng-if="!tile.error" class="message-content" ng-bind-html="tile.message.contentHtml"></div>
+      <md-grid-tile-footer>
+        <h3>{{ ::tile.caption }}</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+
+    <md-grid-tile md-rowspan="{{ tile.rowSpan }}" md-colspan="{{ tile.columnSpan }}"
+                  ng-if="tile.type == 'clock'"
+                  ng-repeat-end
+                  ng-class="( tile.error ? 'error-tile ' : 'clock-tile ' )">
+      <div flex ng-if="!tile.error" class="message-content">
+        <clock timezone="tile.config.timezone"></clock>
+      </div>
+      <md-grid-tile-footer>
+        <h3>{{ ::tile.caption }}</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+  </md-grid-list>
+</div>
+
+<footer>
+  <span>Last updated at {{ ctrl.lastUpdated | date:'mediumTime' }}</span>
+</footer>

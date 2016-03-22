@@ -1,0 +1,38 @@
+﻿@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewBag.Title = "Login - Build Radiator";
+  ViewBag.AngularApp = "BuildRadiator";
+  ViewBag.AngularController = "LoginController";
+}
+
+<div style="width: 864px; margin: 30px auto">
+  <section class="md-whiteframe-z1" layout="column">
+    <md-toolbar class="md-primary md-default-theme">
+      <h1 class="md-toolbar-tools">Login</h1>
+    </md-toolbar>
+    <md-content layout-padding flex>
+      <form name="loginForm" novalidate action="@Url.Action()" method="POST">
+        <div layout="row">
+          <md-input-container style="width: 50%">
+            <label>Username</label>
+            <input name="username" required ng-model="project.description">
+            <div ng-messages="loginForm.username.$error" ng-if="loginForm.username.$dirty">
+              <div ng-message="required">Enter your username.</div>
+            </div>
+          </md-input-container>
+          <md-input-container style="width: 50%">
+            <label>Password</label>
+            <input name="password" type="password" required ng-model="project.clientName">
+            <div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$dirty">
+              <div ng-message="required">Enter your password.</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout="row" layout-align="center center" style="margin-top: 10px">
+          <md-button class="md-raised md-primary">Login</md-button>
+        </div>
+      </form>
+    </md-content>
+  </section>
+
+</div>

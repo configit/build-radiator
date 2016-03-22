@@ -1,0 +1,122 @@
+﻿.build-tile {
+  color: White;
+}
+
+  .build-tile.unknown {
+    background: #9E9E9E;
+  }
+
+  .build-tile.success, .build-tile.inProgress {
+    background: #4CAF50;
+  }
+
+  .build-tile.failed, .build-tile.inProgress.previously-failing {
+    background: #F44336;
+  }
+
+.message-tile {
+  text-align: center;
+}
+
+  .message-tile.standard {
+    background: #EEEEEE;
+    font-size: 48px;
+  }
+
+  .message-tile.standard md-grid-tile-footer {
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  .message-tile.fancy {
+    background: #EEEEEE;
+  }
+
+  .message-tile.fancy .title {
+    font-size: 28px;
+    color: #0A75C5;
+    margin-top: -16px;
+  }
+
+  .message-tile.fancy .quote {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-shadow: #EEEEEE 1px;
+    z-index: 1000;
+  }
+
+  .message-tile.fancy md-grid-tile-footer {
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+.clock-tile {
+  text-align: center;
+  background: #EEEEEE;
+  font-size: 48px;
+}
+
+.clock-tile md-grid-tile-footer {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.error-tile {
+  background: #CC6600;
+}
+
+.committer-overflow {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  text-align: center;
+  background: #424242;
+  vertical-align: bottom;
+  line-height: 50px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.message-content {
+  margin-top: -24px;
+}
+
+.messages {
+  margin: 10px;
+  line-height: 22px;
+}
+
+.small {
+  font-size: 50%;
+}
+
+.user-list {
+  line-height: 0;
+}
+
+.progress-box {
+  margin-bottom: 48px;
+}
+
+footer {
+  margin: 5px;
+  font-size: 10px;
+}
+
+build-status-icon {
+    margin-left: 5px;
+}
+
+md-grid-tile {
+  transition: all 400ms ease-out 50ms;
+}
+
+md-whiteframe {
+  background: #fff;
+  margin: 20px;
+  padding: 20px;
+}
+
+md-grid-list md-grid-tile md-grid-tile-footer h3 {
+  margin-left: 5px;
+  line-height: 24px;
+}
