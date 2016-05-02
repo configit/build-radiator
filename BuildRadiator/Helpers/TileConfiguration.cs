@@ -30,6 +30,11 @@ namespace BuildRadiator.Helpers {
         case "project":
           var buildName = config.Value<string>( "buildName" );
           var branchName = config.Value<string>( "branchName" );
+          // HACK
+          if ( "null" == branchName ) {
+            branchName = null;
+          }
+
           convertedTile = new ProjectTile( caption, buildName, branchName );
           break;
         case "message":

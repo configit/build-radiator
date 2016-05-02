@@ -1,4 +1,4 @@
-﻿using System;
+﻿  using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
@@ -39,11 +39,16 @@ namespace BuildRadiator.Controllers {
     }
 
     private static async Task<XmlDocument> GetBuildInfo( HttpClient client, string buildType, string branchName ) {
-      var url = "builds/buildType:name:" + Uri.EscapeDataString( buildType ) + ",running:any,branch:" + Uri.EscapeUriString( branchName ) + ",count:1?fields=buildType,branchName,status,statusText,startDate,finishDate,running,running-info";
+
+      var branchUrl = string.Empty;
+      if ( !string.IsNullOrEmpty( branchName ) && "null" != branchName ) {
+        branchUrl = ",branch:" + Uri.EscapeUriString( branchName );
+      }
+
+      var url = "builds/buildType:name:" + Uri.EscapeDataString( buildType ) + ",running:any" + branchUrl + ",count:1?fields=buildType,branchName,status,statusText,startDate,finishDate,running,running-info";
       var cacheBuster = "&t=" + DateTime.UtcNow.Ticks;
 
       var data = await client.GetStringAsync( url + cacheBuster );
-
       var document = new XmlDocument();
       document.LoadXml( data );
 
