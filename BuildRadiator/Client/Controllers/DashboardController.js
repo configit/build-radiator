@@ -1,61 +1,91 @@
-﻿( function() {
+﻿(function () {
   'use strict';
 
-  var module = angular.module( 'BuildRadiator' );
+  var module = angular.module('BuildRadiator');
 
-  module.controller( 'DashboardController', ['$http', '$scope', '$interval', '$log', 'TileConfiguration', 'BuildService', 'MessageService', function( $http, $scope, $interval, $log, TileConfiguration, BuildService, MessageService ) {
+  module.controller('DashboardController', ['$http', '$scope', '$interval', '$log', 'TileConfiguration', 'BuildService', 'MessageService', function ($http, $scope, $interval, $log, TileConfiguration, BuildService, MessageService) {
     var self = this;
     var timer = null;
-    
+
     self.committerLimit = 11;
 
-    function refreshProject( tile ) {
-      BuildService.get( tile.config.buildName, tile.config.branchName ).then( function( project ) {
-        delete tile.error;
-        tile.project = project;
-      }, function( error ) {
-        tile.error = error;
-        $log.error( error );
-      } );
+    function refreshProject(err, tile, build) {
+      if (err) {
+        tile.error = err;
+        $log.error(err);
+        return;
+      }
+
+      delete tile.error;
+      tile.project = build;
     }
 
-    function refreshMessage( tile ) {
-      MessageService.get( tile.config.messageKey ).then( function( message ) {
+    function refreshMessage(tile) {
+      MessageService.get(tile.config.messageKey).then(function (message) {
         delete tile.error;
         tile.message = message;
-      }, function( error ) {
-        tile.error = error;
-        $log.error( error );
-      } );
+      }, function (err) {
+        tile.error = err;
+        $log.error(err);
+      });
+    }
+
+    function findBuild( builds, tile ) {
+      return builds.find(function (b) {
+        return tile.config.buildName === b.name && tile.config.branchName === b.branchName;
+      });
+    }
+
+    function refreshAllProjects(err, builds, projectTiles) {
+      if (err) {
+        return projectTiles.forEach(function (tile) {
+          refreshProject(err, tile);
+        });
+      }
+
+      return projectTiles.forEach(function (tile) {
+        var build = findBuild(builds, tile);
+
+        if (build) {
+          refreshProject(null, tile, build);
+        }
+        else {
+          refreshProject({ message: "could not find build" }, tile);
+        }
+      });
     }
 
     function refresh() {
       self.lastUpdated = new Date();
-      angular.forEach( self.tiles, function( tile ) {
-        switch ( tile.type ) {
-          case 'project':
-            refreshProject( tile );
-            break;
-          case 'message':
-            refreshMessage( tile );
-            break;
-        }
-      } );
+
+      var projectTiles = self.tiles.filter(function (t) { return t.type === 'project'; });
+      var projectConfigurations = projectTiles.map(function (t) { return t.config; });
+      BuildService.getAll(projectConfigurations).then(function (builds) {
+        refreshAllProjects(null, builds, projectTiles);
+      }, function (err) {
+        refreshAllProjects(err, null, projectTiles);
+      }
+      );
+
+      var messageTiles = self.tiles.filter(function (t) { return t.type === 'message'; });
+      messageTiles.forEach(function (messageTile) {
+        refreshMessage(messageTile);
+      });
     }
 
     function startRefreshTimer() {
       refresh();
-      timer = $interval( refresh, 10000 );
+      timer = $interval(refresh, 30000);
     }
 
-    $scope.$on( '$destroy', function() {
-      $interval.cancel( timer );
-    } );
+    $scope.$on('$destroy', function () {
+      $interval.cancel(timer);
+    });
 
-    TileConfiguration.get().then( function( tiles ) {
+    TileConfiguration.get().then(function (tiles) {
       self.tiles = tiles;
       startRefreshTimer();
-    } );
-  }] );
+    });
+  }]);
 
-} )();
+})();

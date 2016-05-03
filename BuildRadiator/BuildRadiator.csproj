@@ -152,6 +152,7 @@
     <Content Include="App_Data\messageconf.json" />
     <None Include="Properties\PublishProfiles\Bart.pubxml" />
     <Content Include="Scripts\angular-messages.min.js.map" />
+    <None Include="Properties\PublishProfiles\cph-build-radiator.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_en-gb.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -186,10 +187,11 @@
     <Compile Include="Model\Tiles\MessageTileConfig.cs" />
     <Compile Include="Model\Tiles\ProjectTile.cs" />
     <Compile Include="Model\Message.cs" />
-    <Compile Include="Model\Tiles\ProjectTileConfig.cs" />
+    <Compile Include="Model\Tiles\BuildDefinition.cs" />
     <Compile Include="Model\Tiles\Tile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\Authentication\TeamCityAuthentication.cs" />
+    <Compile Include="Services\BuildService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
