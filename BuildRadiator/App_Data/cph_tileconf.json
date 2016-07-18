@@ -1,0 +1,84 @@
+[
+  {
+    "type": "project",
+    "config": {
+      "buildName": "Quote (master)"
+    },
+    "caption": "Quote Master",
+    "columnSpan": 1,
+    "rowSpan": 2
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "Quote 7.8"
+    },
+    "caption": "Quote 7.8",
+    "columnSpan": 1,
+    "rowSpan": 2
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "com.virtubuild.studio.j8",
+      "branchName":  "refs/heads/master"
+    },
+    "caption": "Build - com.virtubuild.studio.j8",
+    "columnSpan": 1,
+    "rowSpan": 2
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "com.virtubuild.studio.j8",
+      "branchName":  "Release-8.4.0.0"
+    },
+    "caption": "Build - com.virtubuild.studio.j8 - Release-8.4.0.0",
+    "columnSpan": 1,
+    "rowSpan": 2
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "configuratorAssembler",
+      "branchName":  "refs/heads/master"
+    },
+    "caption": "Build - Configurator Assembler",
+    "columnSpan": 1,
+    "rowSpan": 1
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "configurator",
+      "branchName":  "refs/heads/master"
+    },
+    "caption": "Build - Configurator",
+    "columnSpan": 1,
+    "rowSpan": 1
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "core",
+      "branchName":  "refs/heads/master"
+    },
+    "caption": "Build - Core",
+    "columnSpan": 1,
+    "rowSpan": 1
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "exporters",
+      "branchName":  "refs/heads/master"
+    },
+    "caption": "Build - Exporters",
+    "columnSpan": 1,
+    "rowSpan": 1
+  }
+]
+
+
+
+

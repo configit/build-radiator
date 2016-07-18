@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Text;
 using System.Web;
@@ -10,28 +11,37 @@ using BuildRadiator.Model;
 
 namespace BuildRadiator.Controllers {
   public class MessageController: ApiController {
-    private static readonly IDictionary<string, Message> Messages;
-    private static readonly IDictionary<string, Func<Message>> DynamicMessages;
+
+    private static readonly IDictionary<string, IDictionary<string, Message>> Messages = new Dictionary<string, IDictionary<string, Message>>();
+    private static readonly string DefaultConfiguration;
 
     static MessageController() {
-      // hardcoded reference to HttpContext
-      var jsonConf = HttpContext.Current.Server.MapPath( @"~/App_Data/messageconf.json" );
-      if ( File.Exists( jsonConf ) ) {
-        Messages = MessageConfiguration.ReadFromFile( jsonConf );
-      }
+      DefaultConfiguration = ConfigurationManager.AppSettings["DefaultMessageConfiguration"];
 
-      DynamicMessages = new Dictionary<string, Func<Message>>();
+      var confPath = HttpContext.Current.Server.MapPath( @"~/App_Data/" );
+      var configurationFiles = Directory.GetFiles( confPath, "*_messageconf.json" );
+
+      foreach ( var configurationFile in configurationFiles ) {
+
+        if ( string.IsNullOrEmpty( configurationFile ) ) {
+          continue;
+        }
+
+        var name = Path.GetFileNameWithoutExtension( configurationFile ).Split( '_' )[0];
+
+        if ( File.Exists( configurationFile ) ) {
+          Messages[name] = MessageConfiguration.ReadFromFile( configurationFile );
+        }
+      }
     }
 
+    public Message Get( string id, [FromUri]string confId = "" ) {
+      var confName = string.IsNullOrEmpty( confId ) ? DefaultConfiguration : confId;
 
-
-    public Message Get( string id ) {
-      if ( Messages.ContainsKey( id ) ) {
-        return Messages[id];
-      }
-
-      if ( DynamicMessages.ContainsKey( id ) ) {
-        return DynamicMessages[id]();
+      if ( Messages.ContainsKey( confName ) ) {
+        if ( Messages[ confName ].ContainsKey( id ) ) {
+          return Messages[confName][id];
+        }
       }
 
       return new Message( "UNKNOWN: " + id );

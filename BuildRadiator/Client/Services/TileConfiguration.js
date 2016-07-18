@@ -2,13 +2,19 @@
   'use strict';
 
   var module = angular.module( 'BuildRadiator' );
-  
-  module.factory( 'TileConfiguration', ['$q', '$http', function( $q, $http ) {
-    return {
-      get: function() {
-        var deferred = $q.defer();
 
-        $http.get( 'api/tile' ).then( function( response ) {
+  module.factory( 'TileConfiguration', ['$q', '$http', '$location', function( $q, $http, $location ) {
+    return {
+      get: function () {
+        var query = $location.search();
+        var url = 'api/tile';
+        console.log( query, query.conf );
+        if ( query && query["conf"] ) {
+          url += '/' + query["conf"];
+        }
+
+        var deferred = $q.defer();
+        $http.get( url ).then( function( response ) {
           deferred.resolve( response.data );
         }, function( error ) {
           deferred.reject( error );

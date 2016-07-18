@@ -3,7 +3,9 @@
 
   angular.module( 'BuildRadiator', ['ngMaterial', 'ngMessages'] );
 
-  angular.module( 'BuildRadiator' ).config( ['$httpProvider', '$provide', function( $httpProvider, $provide ) {
+  angular.module( 'BuildRadiator' ).config( ['$httpProvider', '$locationProvider', '$provide', function( $httpProvider, $locationProvider, $provide ) {
+
+    $locationProvider.html5Mode(true);
 
     $provide.factory( 'httpInterceptor', ['$window', '$location', '$q', function( $window, $location, $q ) {
       return {

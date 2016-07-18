@@ -1,0 +1,51 @@
+[
+  {
+    "type": "project",
+    "config": {
+      "buildName": "Quote (master)"
+    },
+    "caption": "Quote Master",
+    "columnSpan": 1,
+    "rowSpan": 2
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "Quote 7.8"
+    },
+    "caption": "Quote 7.8",
+    "columnSpan": 1,
+    "rowSpan": 2
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "Quote 5.7"
+    },
+    "caption": "Quote 5.7",
+    "columnSpan": 1,
+    "rowSpan": 2
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "quote-deploy"
+    },
+    "caption": "Daily Quote Deploy",
+    "columnSpan": 1,
+    "rowSpan": 2
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "quote-deploy-78"
+    },
+    "caption": "Daily Quote Deploy 7.8",
+    "columnSpan": 1,
+    "rowSpan": 2
+  }
+]
+
+
+
+
