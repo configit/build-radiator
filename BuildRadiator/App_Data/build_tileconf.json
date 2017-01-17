@@ -5,7 +5,7 @@
       "buildName": "com.virtubuild.studio.j8",
       "branchName":  "refs/heads/master"
     },
-    "caption": "Build - com.virtubuild.studio.j8",
+    "caption": "Studio 8 (master)",
     "columnSpan": 1,
     "rowSpan": 2
   },
@@ -13,11 +13,21 @@
     "type": "project",
     "config": {
       "buildName": "com.virtubuild.studio.j8",
-      "branchName":  "Release-8.4.0.0"
+      "branchName": "Release-8.6.0-ConfiguratorInternal"
     },
-    "caption": "Build - com.virtubuild.studio.j8 - Release-8.4.0.0",
+    "caption": "Studio 8 (internal)",
     "columnSpan": 1,
     "rowSpan": 2
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "testsuite",
+      "branchName":  "refs/heads/master"
+    },
+    "caption": "Configurator Test Suite",
+    "columnSpan": 1,
+    "rowSpan": 1
   },
   {
     "type": "project",
@@ -25,9 +35,9 @@
       "buildName": "configuratorAssembler",
       "branchName":  "refs/heads/master"
     },
-    "caption": "Build - Configurator Assembler",
+    "caption": "Configurator Assembler",
     "columnSpan": 1,
-    "rowSpan": 2
+    "rowSpan": 1
   },
   {
     "type": "project",
@@ -35,19 +45,48 @@
       "buildName": "configurator",
       "branchName":  "refs/heads/master"
     },
-    "caption": "Build - Configurator",
+    "caption": "Configurator",
     "columnSpan": 1,
-    "rowSpan": 2
+    "rowSpan": 1
   },
   {
     "type": "project",
     "config": {
       "buildName": "core",
+      "branchName": "refs/heads/master"
+    },
+    "caption": "Core",
+    "columnSpan": 1,
+    "rowSpan": 1
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "batikConnector",
+      "branchName": "refs/heads/master"
+    },
+    "caption": "Batik Connector",
+    "columnSpan": 1,
+    "rowSpan": 1
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "vtconnector",
       "branchName":  "refs/heads/master"
     },
-    "caption": "Build - Core",
+    "caption": "Configit Connector (VT)",
     "columnSpan": 1,
-    "rowSpan": 2
+    "rowSpan": 1
+  },
+  {
+    "type": "project",
+    "config": {
+      "buildName": "vtLogic"
+    },
+    "caption": "VT Logic Runtime (.NET)",
+    "columnSpan": 1,
+    "rowSpan": 1
   },
   {
     "type": "project",
@@ -55,9 +94,9 @@
       "buildName": "exporters",
       "branchName":  "refs/heads/master"
     },
-    "caption": "Build - Exporters",
+    "caption": "Exporters",
     "columnSpan": 1,
-    "rowSpan": 2
+    "rowSpan": 1
   }
 ]
 
